@@ -1,11 +1,7 @@
 import Home from "./Home";
 
-interface IndexProps {
-  onLogin?: (type: "artist" | "wall_owner") => void;
-}
-
-const Index = ({ onLogin }: IndexProps) => {
-  return <Home onLogin={onLogin} />;
+const Index = () => {
+  return <Home />;
 };
 
 export default Index;

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -15,12 +16,25 @@ import {
   Shield,
   CheckCircle
 } from "lucide-react";
+import { AuthModal } from "@/components/auth/AuthModal";
+import { useAuth } from "@/hooks/useAuth";
+import { useStats } from "@/hooks/useStats";
 
-interface HomeProps {
-  onLogin?: (type: "artist" | "wall_owner") => void;
-}
+const Home = () => {
+  const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [authType, setAuthType] = useState<'artist' | 'wall_owner'>('artist');
+  const { user } = useAuth();
+  const { stats } = useStats();
 
-const Home = ({ onLogin }: HomeProps) => {
+  const handleAuthClick = (type: 'artist' | 'wall_owner') => {
+    if (user) {
+      // User is already logged in, redirect to dashboard
+      window.location.href = '/dashboard';
+    } else {
+      setAuthType(type);
+      setAuthModalOpen(true);
+    }
+  };
   const featuredArtists = [
     {
       id: "1",
@@ -54,22 +68,22 @@ const Home = ({ onLogin }: HomeProps) => {
   const workflowSteps = [
     {
       icon: Users,
-      title: "Choisir l'artiste",
+      title: "Choisissez l'artiste",
       description: "Parcourez notre sélection d'artistes vérifiés et trouvez celui qui correspond à votre vision."
     },
     {
       icon: MapPin,
-      title: "Définir le projet", 
+      title: "Définissez le projet", 
       description: "Décrivez votre mur, vos attentes et négociez directement avec l'artiste."
     },
     {
       icon: Palette,
-      title: "Création de l'œuvre",
+      title: "Créez l'œuvre",
       description: "Suivez l'avancement en temps réel et communiquez avec votre artiste."
     },
     {
       icon: CheckCircle,
-      title: "Admirer le résultat",
+      title: "Admirez le résultat",
       description: "Profitez de votre nouvelle œuvre d'art urbain qui transforme votre espace."
     }
   ];
@@ -125,7 +139,7 @@ const Home = ({ onLogin }: HomeProps) => {
                 variant="hero" 
                 size="xl" 
                 className="animate-float"
-                onClick={() => onLogin?.("artist")}
+                onClick={() => handleAuthClick("artist")}
               >
                 <Palette className="mr-2 h-6 w-6" />
                 Je suis un artiste
@@ -137,7 +151,7 @@ const Home = ({ onLogin }: HomeProps) => {
                 size="xl"
                 className="animate-float"
                 style={{ animationDelay: "0.2s" }}
-                onClick={() => onLogin?.("wall_owner")}
+                onClick={() => handleAuthClick("wall_owner")}
               >
                 <Building2 className="mr-2 h-6 w-6" />
                 J'ai un mur disponible
@@ -157,7 +171,7 @@ const Home = ({ onLogin }: HomeProps) => {
                 <Users className="h-8 w-8 text-white" />
               </div>
               <div>
-                <div className="text-4xl font-bold text-primary">18+</div>
+                <div className="text-4xl font-bold text-primary">{stats.artistsCount}+</div>
                 <div className="text-muted-foreground">Artistes</div>
               </div>
             </div>
@@ -167,7 +181,7 @@ const Home = ({ onLogin }: HomeProps) => {
                 <Building2 className="h-8 w-8 text-white" />
               </div>
               <div>
-                <div className="text-4xl font-bold text-secondary">1+</div>
+                <div className="text-4xl font-bold text-secondary">{stats.wallsCount}+</div>
                 <div className="text-muted-foreground">Murs</div>
               </div>
             </div>
@@ -177,7 +191,7 @@ const Home = ({ onLogin }: HomeProps) => {
                 <TrendingUp className="h-8 w-8 text-accent-foreground" />
               </div>
               <div>
-                <div className="text-4xl font-bold text-accent">1200+</div>
+                <div className="text-4xl font-bold text-accent">{stats.projectsCount}+</div>
                 <div className="text-muted-foreground">Projets</div>
               </div>
             </div>
@@ -397,14 +411,14 @@ const Home = ({ onLogin }: HomeProps) => {
               <Button 
                 variant="hero" 
                 size="lg"
-                onClick={() => onLogin?.("artist")}
+                onClick={() => handleAuthClick("artist")}
               >
                 Je suis artiste
               </Button>
               <Button 
                 variant="graffiti" 
                 size="lg"
-                onClick={() => onLogin?.("wall_owner")}
+                onClick={() => handleAuthClick("wall_owner")}
               >
                 J'ai un mur
               </Button>
@@ -412,6 +426,13 @@ const Home = ({ onLogin }: HomeProps) => {
           </div>
         </div>
       </section>
+
+      <AuthModal 
+        isOpen={authModalOpen}
+        onClose={() => setAuthModalOpen(false)}
+        defaultType={authType}
+        defaultTab="signup"
+      />
     </div>
   );
 };

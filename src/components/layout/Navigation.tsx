@@ -5,6 +5,7 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { 
@@ -12,7 +13,8 @@ import {
   Menu, 
   X, 
   User, 
-  LogIn,
+  LogOut,
+  Settings,
   MapPin,
   Building2,
   Users,
@@ -20,18 +22,20 @@ import {
   Info
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/hooks/useAuth";
+import { AuthModal } from "@/components/auth/AuthModal";
 
-interface NavigationProps {
-  isLoggedIn?: boolean;
-  userType?: "artist" | "wall_owner";
-  onLogin?: (type: "artist" | "wall_owner") => void;
-}
-
-const Navigation = ({ isLoggedIn = false, userType, onLogin }: NavigationProps) => {
+const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [authModalOpen, setAuthModalOpen] = useState(false);
   const location = useLocation();
+  const { user, userType, signOut } = useAuth();
 
   const isActive = (path: string) => location.pathname === path;
+
+  const handleSignOut = async () => {
+    await signOut();
+  };
 
   const navItems = [
     { href: "/", label: "Accueil", icon: null },
@@ -73,7 +77,7 @@ const Navigation = ({ isLoggedIn = false, userType, onLogin }: NavigationProps) 
 
         {/* Right Side Actions */}
         <div className="flex items-center space-x-4">
-          {isLoggedIn ? (
+          {user ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="relative">
@@ -93,7 +97,12 @@ const Navigation = ({ isLoggedIn = false, userType, onLogin }: NavigationProps) 
                   Mon Profil
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <LogIn className="mr-2 h-4 w-4" />
+                  <Settings className="mr-2 h-4 w-4" />
+                  Paramètres
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={handleSignOut}>
+                  <LogOut className="mr-2 h-4 w-4" />
                   Se déconnecter
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -102,15 +111,9 @@ const Navigation = ({ isLoggedIn = false, userType, onLogin }: NavigationProps) 
             <div className="hidden md:flex items-center space-x-2">
               <Button 
                 variant="ghost" 
-                onClick={() => onLogin?.("artist")}
+                onClick={() => setAuthModalOpen(true)}
               >
-                Je suis artiste
-              </Button>
-              <Button 
-                variant="hero"
-                onClick={() => onLogin?.("wall_owner")}
-              >
-                J'ai un mur
+                Se connecter
               </Button>
             </div>
           )}
@@ -148,35 +151,30 @@ const Navigation = ({ isLoggedIn = false, userType, onLogin }: NavigationProps) 
               </Link>
             ))}
             
-            {!isLoggedIn && (
+            {!user && (
               <div className="pt-4 border-t space-y-2">
                 <Button 
                   variant="outline" 
                   className="w-full justify-start"
                   onClick={() => {
-                    onLogin?.("artist");
+                    setAuthModalOpen(true);
                     setIsOpen(false);
                   }}
                 >
-                  <Palette className="mr-2 h-4 w-4" />
-                  Je suis artiste
-                </Button>
-                <Button 
-                  variant="hero" 
-                  className="w-full justify-start"
-                  onClick={() => {
-                    onLogin?.("wall_owner");
-                    setIsOpen(false);
-                  }}
-                >
-                  <Building2 className="mr-2 h-4 w-4" />
-                  J'ai un mur
+                  <User className="mr-2 h-4 w-4" />
+                  Se connecter
                 </Button>
               </div>
             )}
           </div>
         </div>
       )}
+
+      <AuthModal 
+        isOpen={authModalOpen}
+        onClose={() => setAuthModalOpen(false)}
+        defaultTab="signin"
+      />
     </nav>
   );
 };
