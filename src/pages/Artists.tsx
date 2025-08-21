@@ -156,6 +156,24 @@ const Artists = () => {
           </CardContent>
         </Card>
 
+        {/* Artist CTA */}
+        <Card className="elevated mb-8 bg-gradient-to-r from-secondary/10 to-accent/10 border-secondary/20">
+          <CardContent className="p-6">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+              <div>
+                <h3 className="text-xl font-semibold mb-2">Vous êtes un artiste non référencé ?</h3>
+                <p className="text-muted-foreground">
+                  Référencez-vous et trouvez des opportunités de murs à agrémenter
+                </p>
+              </div>
+              <Button variant="graffiti" size="lg" className="shrink-0">
+                <span className="mr-2 h-5 w-5">🎨</span>
+                Devenir artiste partenaire
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+
         {/* Results Count */}
         <div className="mb-6">
           <p className="text-muted-foreground">
