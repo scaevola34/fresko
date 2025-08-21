@@ -5,6 +5,10 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { ProfileSettings } from "./ProfileSettings";
+import { NewWallWorkflow } from "./NewWallWorkflow";
+import { ProjectTimeline } from "./ProjectTimeline";
+import { ProposalManagement } from "./ProposalManagement";
 import { 
   Building2, 
   Search, 
@@ -43,7 +47,11 @@ interface Stats {
   messagesCount: number;
 }
 
+type DashboardView = "dashboard" | "profile" | "newWall" | "projectTimeline" | "proposals";
+
 const WallOwnerDashboard = () => {
+  const [currentView, setCurrentView] = useState<DashboardView>("dashboard");
+  const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
   const [stats] = useState<Stats>({
     totalWalls: 8,
     activeProjects: 3,
@@ -110,6 +118,41 @@ const WallOwnerDashboard = () => {
     }
   };
 
+  // Render different views based on current state
+  if (currentView === "profile") {
+    return <ProfileSettings />;
+  }
+
+  if (currentView === "newWall") {
+    return <NewWallWorkflow onClose={() => setCurrentView("dashboard")} />;
+  }
+
+  if (currentView === "projectTimeline" && selectedProjectId) {
+    return (
+      <ProjectTimeline 
+        projectId={selectedProjectId}
+        onBack={() => {
+          setCurrentView("dashboard");
+          setSelectedProjectId(null);
+        }}
+      />
+    );
+  }
+
+  if (currentView === "proposals" && selectedProjectId) {
+    const project = projects.find(p => p.id === selectedProjectId);
+    return (
+      <ProposalManagement 
+        projectId={selectedProjectId}
+        projectTitle={project?.title || "Projet"}
+        onBack={() => {
+          setCurrentView("dashboard");
+          setSelectedProjectId(null);
+        }}
+      />
+    );
+  }
+
   return (
     <div className="space-y-8 p-6 max-w-7xl mx-auto">
       {/* Header */}
@@ -120,7 +163,12 @@ const WallOwnerDashboard = () => {
             Gérez vos murs et trouvez les meilleurs artistes
           </p>
         </div>
-        <Button variant="hero" size="lg" className="animate-glow-pulse">
+        <Button 
+          variant="hero" 
+          size="lg" 
+          className="animate-glow-pulse"
+          onClick={() => setCurrentView("newWall")}
+        >
           <Plus className="mr-2 h-5 w-5" />
           Nouveau Mur
         </Button>
@@ -204,7 +252,10 @@ const WallOwnerDashboard = () => {
             <h2 className="text-2xl font-semibold">Mes Projets</h2>
             <div className="flex gap-2">
               <Button variant="outline_glow">Filtrer</Button>
-              <Button variant="graffiti">
+              <Button 
+                variant="graffiti"
+                onClick={() => setCurrentView("newWall")}
+              >
                 <Plus className="mr-2 h-4 w-4" />
                 Nouveau Mur
               </Button>
@@ -249,8 +300,15 @@ const WallOwnerDashboard = () => {
                           {project.applicants} candidatures
                         </span>
                       </div>
-                      <Button variant="hero" size="sm">
-                        Voir
+                      <Button 
+                        variant="hero" 
+                        size="sm"
+                        onClick={() => {
+                          setSelectedProjectId(project.id);
+                          setCurrentView("proposals");
+                        }}
+                      >
+                        Candidatures
                       </Button>
                     </div>
                   )}
@@ -295,9 +353,18 @@ const WallOwnerDashboard = () => {
                       project.status === "en_recherche" ? "graffiti" : "outline_glow"
                     } 
                     className="w-full"
+                    onClick={() => {
+                      if (project.status === "en_cours") {
+                        setSelectedProjectId(project.id);
+                        setCurrentView("projectTimeline");
+                      } else if (project.status === "en_recherche") {
+                        setSelectedProjectId(project.id);
+                        setCurrentView("proposals");
+                      }
+                    }}
                   >
                     {project.status === "en_cours" ? "Suivre Projet" : 
-                     project.status === "en_recherche" ? "Gérer Candidatures" : "Voir Détails"}
+                     project.status === "en_recherche" ? "Candidatures" : "Voir Détails"}
                   </Button>
                 </CardContent>
               </Card>
@@ -363,7 +430,11 @@ const WallOwnerDashboard = () => {
                   </div>
                 </div>
               </div>
-              <Button variant="neon" className="w-full md:w-auto">
+              <Button 
+                variant="neon" 
+                className="w-full md:w-auto"
+                onClick={() => setCurrentView("profile")}
+              >
                 Modifier mon Profil
               </Button>
             </CardContent>
