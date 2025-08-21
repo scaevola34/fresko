@@ -14,7 +14,8 @@ import {
   Calendar,
   Filter,
   SlidersHorizontal,
-  Plus
+  Plus,
+  Palette
 } from "lucide-react";
 
 const Walls = () => {
@@ -189,10 +190,17 @@ const Walls = () => {
                 </SelectContent>
               </Select>
 
-              <Button variant="outline_glow" className="w-full">
-                <SlidersHorizontal className="mr-2 h-4 w-4" />
-                Filtres avancés
-              </Button>
+              <Select value="all" onValueChange={() => {}}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Statut" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">Tous les statuts</SelectItem>
+                  <SelectItem value="Ouvert">Ouvert</SelectItem>
+                  <SelectItem value="En cours">En cours</SelectItem>
+                  <SelectItem value="Terminé">Terminé</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
           </CardContent>
         </Card>
@@ -210,6 +218,24 @@ const Walls = () => {
               <Button variant="hero" size="lg" className="shrink-0">
                 <Plus className="mr-2 h-5 w-5" />
                 Ajouter mon mur
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Artist CTA */}
+        <Card className="elevated mb-8 bg-gradient-to-r from-secondary/10 to-accent/10 border-secondary/20">
+          <CardContent className="p-6">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+              <div>
+                <h3 className="text-xl font-semibold mb-2">Vous êtes un artiste non référencé ?</h3>
+                <p className="text-muted-foreground">
+                  Référencez-vous et trouvez des opportunités de murs à agrémenter
+                </p>
+              </div>
+              <Button variant="graffiti" size="lg" className="shrink-0">
+                <Palette className="mr-2 h-5 w-5" />
+                Devenir artiste partenaire
               </Button>
             </div>
           </CardContent>
@@ -294,6 +320,10 @@ const Walls = () => {
                     size="sm" 
                     className="px-4"
                     disabled={wall.status !== "Ouvert"}
+                    onClick={() => {
+                      // Check authentication and handle application
+                      console.log("Apply for wall", wall.id);
+                    }}
                   >
                     {wall.status === "Ouvert" ? "Candidater" : wall.status}
                   </Button>

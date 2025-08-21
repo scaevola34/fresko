@@ -277,29 +277,6 @@ const Map = () => {
           </div>
         </div>
 
-        {/* Integration Note */}
-        <Card className="elevated mt-8 bg-gradient-to-r from-primary/5 to-secondary/5 border-primary/20">
-          <CardContent className="p-6 text-center">
-            <div className="space-y-4">
-              <div className="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center mx-auto">
-                <MapPin className="h-8 w-8 text-white" />
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold mb-2">Carte Interactive en Développement</h3>
-                <p className="text-muted-foreground max-w-2xl mx-auto">
-                  Cette page intégrera bientôt une carte interactive complète utilisant Leaflet ou Google Maps 
-                  pour visualiser en temps réel tous les artistes, murs disponibles et projets dans votre région.
-                </p>
-              </div>
-              <div className="flex flex-wrap justify-center gap-2 mt-4">
-                <Badge variant="outline">Géolocalisation</Badge>
-                <Badge variant="outline">Filtres avancés</Badge>
-                <Badge variant="outline">Recherche par proximité</Badge>
-                <Badge variant="outline">Clustering intelligent</Badge>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
       </div>
     </div>
   );

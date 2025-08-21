@@ -14,6 +14,8 @@ import DashboardLayout from "./components/dashboard/DashboardLayout";
 import NotFound from "./pages/NotFound";
 import Footer from "./components/layout/Footer";
 import { AuthProvider, useAuth } from "./hooks/useAuth";
+import { ArtistProfile } from "./components/profiles/ArtistProfile";
+import { WallProfile } from "./components/profiles/WallProfile";
 
 const queryClient = new QueryClient();
 
@@ -34,7 +36,9 @@ const AppRoutes = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/artistes" element={<Artists />} />
+            <Route path="/artistes/:id" element={<ArtistProfile artistId="artist-1" />} />
             <Route path="/murs" element={<Walls />} />
+            <Route path="/murs/:id" element={<WallProfile wallId="wall-1" />} />
             <Route path="/carte" element={<Map />} />
             <Route path="/comment-ca-marche" element={<HowItWorks />} />
             <Route path="/a-propos" element={<About />} />

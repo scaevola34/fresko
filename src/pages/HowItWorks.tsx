@@ -22,7 +22,7 @@ const HowItWorks = () => {
     {
       id: 1,
       icon: Search,
-      title: "Découvrir & Choisir",
+      title: "Découvrez & Choisissez",
       subtitle: "Trouvez l'artiste parfait",
       description: "Parcourez notre sélection d'artistes vérifiés, consultez leurs portfolios, lisez les avis clients et trouvez celui qui correspond à votre vision artistique.",
       details: [
@@ -36,7 +36,7 @@ const HowItWorks = () => {
     {
       id: 2,
       icon: MessageCircle,
-      title: "Échanger & Négocier", 
+      title: "Échangez & Négociez", 
       subtitle: "Définissez votre projet ensemble",
       description: "Contactez l'artiste, décrivez votre vision, négociez le prix et planifiez les détails de votre projet en toute transparence.",
       details: [
@@ -50,7 +50,7 @@ const HowItWorks = () => {
     {
       id: 3,
       icon: Palette,
-      title: "Créer & Suivre",
+      title: "Créez & Suivez",
       subtitle: "Votre œuvre prend vie",
       description: "L'artiste réalise votre fresque pendant que vous suivez l'avancement en temps réel grâce à notre système de suivi intégré.",
       details: [
@@ -64,7 +64,7 @@ const HowItWorks = () => {
     {
       id: 4,
       icon: CheckCircle,
-      title: "Admirer & Évaluer",
+      title: "Admirez & Évaluez",
       subtitle: "Votre espace transformé",
       description: "Profitez de votre nouvelle œuvre d'art urbain et partagez votre expérience en laissant un avis pour aider la communauté.",
       details: [
@@ -300,18 +300,18 @@ const HowItWorks = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/artistes">
-                <Button variant="hero" size="lg">
-                  Découvrir les artistes
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-              </Link>
-              <Link to="/murs">
-                <Button variant="graffiti" size="lg">
-                  Proposer mon mur
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-              </Link>
+                <Link to="/artistes">
+                  <Button variant="hero" size="lg">
+                    Découvrez les artistes
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Button>
+                </Link>
+                <Link to="/murs">
+                  <Button variant="graffiti" size="lg">
+                    Proposez votre mur
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Button>
+                </Link>
             </div>
 
             <div className="flex items-center justify-center gap-8 text-sm text-muted-foreground">

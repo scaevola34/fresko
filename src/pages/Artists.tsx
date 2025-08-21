@@ -151,10 +151,7 @@ const Artists = () => {
                 </SelectContent>
               </Select>
 
-              <Button variant="outline_glow" className="w-full">
-                <SlidersHorizontal className="mr-2 h-4 w-4" />
-                Filtres avancés
-              </Button>
+              <div></div>
             </div>
           </CardContent>
         </Card>
@@ -216,7 +213,15 @@ const Artists = () => {
                       Voir le profil
                     </Button>
                   </Link>
-                  <Button variant="hero" size="sm" className="px-4">
+                  <Button 
+                    variant="hero" 
+                    size="sm" 
+                    className="px-4"
+                    onClick={() => {
+                      // Check authentication and handle contact
+                      console.log("Contact artist", artist.id);
+                    }}
+                  >
                     Contacter
                   </Button>
                 </div>
