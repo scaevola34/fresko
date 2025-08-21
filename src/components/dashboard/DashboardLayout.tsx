@@ -22,6 +22,7 @@ import { cn } from "@/lib/utils";
 import { useAuth } from "@/hooks/useAuth";
 import ArtistDashboard from "./ArtistDashboard";
 import WallOwnerDashboard from "./WallOwnerDashboard";
+import { ProfileSettings } from "./ProfileSettings";
 
 type UserType = "artist" | "wall_owner";
 
@@ -38,6 +39,7 @@ const DashboardLayout = ({
 }: DashboardLayoutProps) => {
   const { user, userType: authUserType, signOut } = useAuth();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [currentView, setCurrentView] = useState<"dashboard" | "profile">("dashboard");
   
   // Use auth data with fallbacks
   const displayUserType = userType || authUserType || "artist";
@@ -73,9 +75,9 @@ const DashboardLayout = ({
 
           {/* Right Side */}
           <div className="flex-1 flex items-center justify-end space-x-4">
-            {/* User Type Display */}
+            {/* User Name Display */}
             <div className="hidden md:block text-sm text-muted-foreground">
-              {displayUserType === "artist" ? "Artiste" : "Propriétaire"}
+              Bonjour, {displayUserName.split(' ')[0]}
             </div>
 
             {/* Notifications */}
@@ -106,11 +108,11 @@ const DashboardLayout = ({
                   </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setCurrentView("profile")}>
                   <User className="mr-2 h-4 w-4" />
                   <span>Mon Profil</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setCurrentView("dashboard")}>
                   <User className="mr-2 h-4 w-4" />
                   <span>Mon Dashboard</span>
                 </DropdownMenuItem>
@@ -136,7 +138,9 @@ const DashboardLayout = ({
 
       {/* Main Content */}
       <main className="w-full">
-        {displayUserType === "artist" ? (
+        {currentView === "profile" ? (
+          <ProfileSettings />
+        ) : displayUserType === "artist" ? (
           <ArtistDashboard />
         ) : (
           <WallOwnerDashboard />

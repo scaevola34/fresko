@@ -5,6 +5,8 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { ProfileSettings } from "./ProfileSettings";
+import { ArtistProjectTimeline } from "./ArtistProjectTimeline";
 import { 
   Palette, 
   TrendingUp, 
@@ -15,13 +17,14 @@ import {
   Camera,
   Users,
   MapPin,
-  Clock
+  Clock,
+  Plus
 } from "lucide-react";
 
 interface Project {
   id: string;
   title: string;
-  status: "en_cours" | "terminé" | "en_attente";
+  status: "en_cours" | "terminé" | "devis_envoye";
   progress: number;
   clientName: string;
   location: string;
@@ -38,7 +41,11 @@ interface Stats {
   messagesCount: number;
 }
 
+type DashboardView = "dashboard" | "profile" | "projectTimeline";
+
 const ArtistDashboard = () => {
+  const [currentView, setCurrentView] = useState<DashboardView>("dashboard");
+  const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
   const [stats] = useState<Stats>({
     totalProjects: 28,
     completedProjects: 25,
@@ -62,7 +69,7 @@ const ArtistDashboard = () => {
     {
       id: "2", 
       title: "Mur d'Expression - Lycée Voltaire",
-      status: "en_attente",
+      status: "devis_envoye",
       progress: 0,
       clientName: "Marie Dubois",
       location: "69001 Lyon", 
@@ -86,7 +93,7 @@ const ArtistDashboard = () => {
     switch (status) {
       case "en_cours": return "bg-gradient-secondary";
       case "terminé": return "bg-gradient-accent";
-      case "en_attente": return "bg-gradient-primary";
+      case "devis_envoye": return "bg-gradient-primary";
       default: return "bg-muted";
     }
   };
@@ -95,10 +102,27 @@ const ArtistDashboard = () => {
     switch (status) {
       case "en_cours": return "En cours";
       case "terminé": return "Terminé";
-      case "en_attente": return "En attente";
+      case "devis_envoye": return "Devis envoyé";
       default: return status;
     }
   };
+
+  // Render different views based on current state
+  if (currentView === "profile") {
+    return <ProfileSettings />;
+  }
+
+  if (currentView === "projectTimeline" && selectedProjectId) {
+    return (
+      <ArtistProjectTimeline 
+        projectId={selectedProjectId}
+        onBack={() => {
+          setCurrentView("dashboard");
+          setSelectedProjectId(null);
+        }}
+      />
+    );
+  }
 
   return (
     <div className="space-y-8 p-6 max-w-7xl mx-auto">
@@ -111,8 +135,8 @@ const ArtistDashboard = () => {
           </p>
         </div>
         <Button variant="hero" size="lg" className="animate-glow-pulse">
-          <Camera className="mr-2 h-5 w-5" />
-          Nouveau Projet
+          <Plus className="mr-2 h-5 w-5" />
+          Rechercher des Murs
         </Button>
       </div>
 
@@ -196,7 +220,7 @@ const ArtistDashboard = () => {
               <Button variant="outline_glow">Filtrer</Button>
               <Button variant="graffiti">
                 <Palette className="mr-2 h-4 w-4" />
-                Nouveau Projet
+                Rechercher des Murs
               </Button>
             </div>
           </div>
@@ -251,10 +275,20 @@ const ArtistDashboard = () => {
                   </div>
 
                   <Button 
-                    variant={project.status === "en_cours" ? "hero" : "outline_glow"} 
+                    variant={
+                      project.status === "en_cours" ? "hero" : 
+                      project.status === "terminé" ? "outline_glow" : "graffiti"
+                    } 
                     className="w-full"
+                    onClick={() => {
+                      if (project.status === "en_cours" || project.status === "terminé") {
+                        setSelectedProjectId(project.id);
+                        setCurrentView("projectTimeline");
+                      }
+                    }}
                   >
-                    {project.status === "en_cours" ? "Continuer" : "Voir Détails"}
+                    {project.status === "en_cours" ? "Suivre Projet" : 
+                     project.status === "terminé" ? "En savoir plus" : "En attente"}
                   </Button>
                 </CardContent>
               </Card>
@@ -320,7 +354,11 @@ const ArtistDashboard = () => {
                   </div>
                 </div>
               </div>
-              <Button variant="neon" className="w-full md:w-auto">
+              <Button 
+                variant="neon" 
+                className="w-full md:w-auto"
+                onClick={() => setCurrentView("profile")}
+              >
                 Modifier mon Profil
               </Button>
             </CardContent>
