@@ -192,11 +192,6 @@ const Artists = () => {
                     alt={`Œuvre de ${artist.name}`}
                     className="w-full h-full object-cover transition-transform group-hover:scale-105"
                   />
-                  <div className="absolute top-3 left-3">
-                    <Badge className="bg-gradient-primary text-white border-0">
-                      {artist.specialty}
-                    </Badge>
-                  </div>
                   <div className="absolute top-3 right-3 bg-background/90 backdrop-blur-sm rounded-lg px-2 py-1 flex items-center gap-1">
                     <Star className="h-3 w-3 text-accent fill-accent" />
                     <span className="text-xs font-medium">{artist.rating}</span>

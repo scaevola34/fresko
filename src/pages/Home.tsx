@@ -135,30 +135,28 @@ const Home = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Link to="/artistes">
-                <Button 
-                  variant="hero" 
-                  size="xl" 
-                  className="animate-float"
-                >
-                  <Palette className="mr-2 h-6 w-6" />
-                  Je suis un artiste
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-              </Link>
+              <Button 
+                variant="hero" 
+                size="xl" 
+                className="animate-float"
+                onClick={() => handleAuthClick('artist')}
+              >
+                <Palette className="mr-2 h-6 w-6" />
+                Je suis un artiste
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
               
-              <Link to="/murs">
-                <Button 
-                  variant="graffiti" 
-                  size="xl"
-                  className="animate-float"
-                  style={{ animationDelay: "0.2s" }}
-                >
-                  <Building2 className="mr-2 h-6 w-6" />
-                  J'ai un mur disponible
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-              </Link>
+              <Button 
+                variant="graffiti" 
+                size="xl"
+                className="animate-float"
+                style={{ animationDelay: "0.2s" }}
+                onClick={() => handleAuthClick('wall_owner')}
+              >
+                <Building2 className="mr-2 h-6 w-6" />
+                J'ai un mur disponible
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
             </div>
           </div>
         </div>
@@ -238,7 +236,6 @@ const Home = () => {
                 
                 <CardContent>
                   <div className="flex items-center justify-between mb-4">
-                    <Badge variant="secondary">{artist.specialty}</Badge>
                     <span className="text-sm text-muted-foreground">
                       {artist.projects} projets réalisés
                     </span>
@@ -410,22 +407,20 @@ const Home = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/artistes">
-                <Button 
-                  variant="hero" 
-                  size="lg"
-                >
-                  Je suis artiste
-                </Button>
-              </Link>
-              <Link to="/murs">
-                <Button 
-                  variant="graffiti" 
-                  size="lg"
-                >
-                  J'ai un mur
-                </Button>
-              </Link>
+              <Button 
+                variant="hero" 
+                size="lg"
+                onClick={() => handleAuthClick('artist')}
+              >
+                Je suis artiste
+              </Button>
+              <Button 
+                variant="graffiti" 
+                size="lg"
+                onClick={() => handleAuthClick('wall_owner')}
+              >
+                J'ai un mur
+              </Button>
             </div>
           </div>
         </div>

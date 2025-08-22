@@ -240,21 +240,33 @@ const Map = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
-                <div className="flex items-center gap-3">
-                  <div className="w-4 h-4 bg-gradient-primary rounded-full"></div>
-                  <span className="text-sm">Artistes disponibles</span>
+                <div className="flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-3">
+                    <div className="w-4 h-4 bg-gradient-primary rounded-full"></div>
+                    <span className="text-sm">Artistes disponibles</span>
+                  </div>
+                  <Badge variant="secondary" className="text-xs">28</Badge>
                 </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-4 h-4 bg-gradient-secondary rounded-full"></div>
-                  <span className="text-sm">Murs à décorer</span>
+                <div className="flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-3">
+                    <div className="w-4 h-4 bg-gradient-secondary rounded-full"></div>
+                    <span className="text-sm">Murs à décorer</span>
+                  </div>
+                  <Badge variant="secondary" className="text-xs">12</Badge>
                 </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-4 h-4 bg-gradient-accent rounded-full"></div>
-                  <span className="text-sm">Projets en cours</span>
+                <div className="flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-3">
+                    <div className="w-4 h-4 bg-gradient-accent rounded-full"></div>
+                    <span className="text-sm">Projets en cours</span>
+                  </div>
+                  <Badge variant="secondary" className="text-xs">8</Badge>
                 </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-4 h-4 bg-muted rounded-full"></div>
-                  <span className="text-sm">Œuvres terminées</span>
+                <div className="flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-3">
+                    <div className="w-4 h-4 bg-muted rounded-full"></div>
+                    <span className="text-sm">Œuvres terminées</span>
+                  </div>
+                  <Badge variant="secondary" className="text-xs">108</Badge>
                 </div>
               </CardContent>
             </Card>

@@ -44,9 +44,14 @@ const Footer = () => {
               <Link to="#" className="block text-muted-foreground hover:text-primary transition-colors">
                 FAQ
               </Link>
-              <Link to="#" className="block text-muted-foreground hover:text-primary transition-colors">
+              <a 
+                href="https://typeform.com" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="block text-muted-foreground hover:text-primary transition-colors"
+              >
                 Contact
-              </Link>
+              </a>
               <Link to="#" className="block text-muted-foreground hover:text-primary transition-colors">
                 Conditions d'utilisation
               </Link>
