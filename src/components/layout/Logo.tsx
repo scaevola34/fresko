@@ -29,11 +29,8 @@ export const Logo = ({ className = "" }: LogoProps) => {
       
       {/* Brand text */}
       <div className="flex flex-col leading-none">
-        <span className="text-2xl font-bold text-primary tracking-tight">
+        <span className="text-2xl font-black text-primary tracking-wider uppercase" style={{ fontFamily: 'system-ui, -apple-system, sans-serif', letterSpacing: '0.1em' }}>
           FRESKO
-        </span>
-        <span className="text-xs text-muted-foreground uppercase tracking-wide">
-          Faites parler les murs avec l'art
         </span>
       </div>
     </Link>
