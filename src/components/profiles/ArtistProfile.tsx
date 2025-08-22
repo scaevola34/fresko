@@ -335,7 +335,7 @@ export const ArtistProfile = ({ artistId, onBack }: ArtistProfileProps) => {
                   </div>
                   <div>
                     <h4 className="font-semibold mb-2">Projets réalisés</h4>
-                    <p className="text-muted-foreground">{artist.projectsCount} œuvres créées via WXLLSPACE</p>
+                    <p className="text-muted-foreground">{artist.projectsCount} œuvres créées via FRESKO</p>
                   </div>
                 </div>
 

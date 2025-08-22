@@ -190,7 +190,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
       toast({
         title: "Connexion réussie",
-        description: "Bienvenue sur WXLLSPACE !"
+        description: "Bienvenue sur FRESKO !"
       });
 
       return { error: null };
@@ -211,7 +211,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       setUserType(null);
       toast({
         title: "Déconnexion",
-        description: "À bientôt sur WXLLSPACE !"
+        description: "À bientôt sur FRESKO !"
       });
     } catch (error) {
       console.error('Sign out error:', error);

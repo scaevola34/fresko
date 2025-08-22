@@ -92,13 +92,13 @@ const Home = () => {
     {
       name: "Thomas Moreau",
       role: "Propriétaire de restaurant",
-      content: "WXLLSPACE m'a permis de transformer la façade de mon commerce en une véritable œuvre d'art. Le processus était simple et le résultat est spectaculaire!",
+      content: "FRESKO m'a permis de transformer la façade de mon commerce en une véritable œuvre d'art. Le processus était simple et le résultat est spectaculaire!",
       image: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=80&auto=format&fit=crop"
     },
     {
       name: "Julie Lambert",
       role: "Artiste street art", 
-      content: "Grâce à WXLLSPACE, j'ai pu trouver des projets intéressants et développer ma visibilité. Un outil essentiel pour les artistes urbains!",
+      content: "Grâce à FRESKO, j'ai pu trouver des projets intéressants et développer ma visibilité. Un outil essentiel pour les artistes urbains!",
       image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=80&auto=format&fit=crop"
     },
     {
@@ -304,11 +304,11 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Why choose WXLLSPACE */}
+      {/* Why choose FRESKO */}
       <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Pourquoi choisir WXLLSPACE ?</h2>
+            <h2 className="text-4xl font-bold mb-4">Pourquoi choisir FRESKO ?</h2>
             <p className="text-xl text-muted-foreground">
               Une plateforme sécurisée qui met la qualité et la confiance au cœur de chaque collaboration artistique
             </p>
@@ -405,7 +405,7 @@ const Home = () => {
               Prêt à donner vie à votre projet?
             </h2>
             <p className="text-xl text-muted-foreground">
-              Rejoignez WXLLSPACE aujourd'hui et connectez-vous avec une communauté passionnée. 
+              Rejoignez FRESKO aujourd'hui et connectez-vous avec une communauté passionnée. 
               Que vous soyez artiste ou propriétaire, votre prochaine collaboration vous attend.
             </p>
             

@@ -23,6 +23,7 @@ import { useAuth } from "@/hooks/useAuth";
 import ArtistDashboard from "./ArtistDashboard";
 import WallOwnerDashboard from "./WallOwnerDashboard";
 import { ProfileSettings } from "./ProfileSettings";
+import { Logo } from "../layout/Logo";
 
 type UserType = "artist" | "wall_owner";
 
@@ -64,12 +65,7 @@ const DashboardLayout = ({
               {sidebarOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </Button>
             <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
-                <Palette className="h-5 w-5 text-white" />
-              </div>
-              <span className="font-bold text-xl text-graffiti hidden md:inline-block">
-                WXLLSPACE
-              </span>
+              <Logo />
             </div>
           </div>
 

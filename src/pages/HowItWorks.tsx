@@ -199,7 +199,7 @@ const HowItWorks = () => {
         {/* Advantages Section */}
         <section className="py-20 bg-muted/30 -mx-4 px-4 mb-20">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Pourquoi choisir WXLLSPACE ?</h2>
+            <h2 className="text-4xl font-bold mb-4">Pourquoi choisir FRESKO ?</h2>
             <p className="text-xl text-muted-foreground">
               Une plateforme conçue pour la réussite de votre projet artistique
             </p>
@@ -271,7 +271,7 @@ const HowItWorks = () => {
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-4">Questions Fréquentes</h2>
             <p className="text-xl text-muted-foreground">
-              Tout ce que vous devez savoir sur WXLLSPACE
+              Tout ce que vous devez savoir sur FRESKO
             </p>
           </div>
 
@@ -296,7 +296,7 @@ const HowItWorks = () => {
               Prêt à commencer votre projet ?
             </h2>
             <p className="text-xl text-muted-foreground">
-              Rejoignez les centaines de clients satisfaits qui ont transformé leur espace grâce à WXLLSPACE
+              Rejoignez les centaines de clients satisfaits qui ont transformé leur espace grâce à FRESKO
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

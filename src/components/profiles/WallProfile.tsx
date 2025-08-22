@@ -69,7 +69,7 @@ export const WallProfile = ({ wallId, onBack }: WallProfileProps) => {
       "Parking possible"
     ],
     contactInfo: {
-      preferredContact: "Via la plateforme WXLLSPACE",
+      preferredContact: "Via la plateforme FRESKO",
       responseTime: "24-48h"
     },
     createdAt: "2024-01-10"

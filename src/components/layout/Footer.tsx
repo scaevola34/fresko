@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Palette, Instagram, Twitter, Facebook } from "lucide-react";
+import { Logo } from "./Logo";
 
 const Footer = () => {
   return (
@@ -8,12 +9,7 @@ const Footer = () => {
         <div className="grid md:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="space-y-4">
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
-                <Palette className="h-5 w-5 text-white" />
-              </div>
-              <span className="font-bold text-xl text-graffiti">WXLLSPACE</span>
-            </div>
+            <Logo />
             <p className="text-muted-foreground">
               La marketplace française qui connecte les artistes urbains avec les propriétaires de murs.
             </p>
@@ -79,7 +75,7 @@ const Footer = () => {
 
         <div className="border-t mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-muted-foreground text-sm">
-            © {new Date().getFullYear()} WXLLSPACE. Tous droits réservés.
+            © {new Date().getFullYear()} FRESKO. Tous droits réservés.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <Link to="#" className="text-muted-foreground hover:text-primary text-sm transition-colors">

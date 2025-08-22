@@ -81,7 +81,7 @@ const Map = () => {
             Carte Interactive
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Découvrez la communauté WXLLSPACE près de chez vous : artistes, murs disponibles et projets en cours
+            Découvrez la communauté FRESKO près de chez vous : artistes, murs disponibles et projets en cours
           </p>
         </div>
 

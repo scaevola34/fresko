@@ -26,7 +26,7 @@ const About = () => {
     {
       icon: Users,
       title: "Communauté",
-      description: "WXLLSPACE unit artistes et propriétaires dans une communauté bienveillante où chacun peut exprimer sa créativité et ses besoins."
+      description: "FRESKO unit artistes et propriétaires dans une communauté bienveillante où chacun peut exprimer sa créativité et ses besoins."
     },
     {
       icon: Target,
@@ -44,7 +44,7 @@ const About = () => {
     {
       name: "Marie Dubois",
       role: "Fondatrice & CEO",
-      description: "Passionnée d'art urbain depuis 10 ans, Marie a créé WXLLSPACE pour démocratiser l'accès à l'art mural.",
+      description: "Passionnée d'art urbain depuis 10 ans, Marie a créé FRESKO pour démocratiser l'accès à l'art mural.",
       image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=200&auto=format&fit=crop"
     },
     {
@@ -101,7 +101,7 @@ const About = () => {
             Notre histoire
           </Badge>
           <h1 className="text-4xl md:text-6xl font-bold text-graffiti mb-6">
-            À propos de WXLLSPACE
+            À propos de FRESKO
           </h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             La première marketplace française dédiée au street art, née de la passion de démocratiser 
@@ -118,7 +118,7 @@ const About = () => {
               </div>
               <h2 className="text-3xl font-bold mb-6">Notre Mission</h2>
               <p className="text-lg leading-relaxed max-w-4xl mx-auto mb-8">
-                WXLLSPACE révolutionne l'accès à l'art en créant des ponts entre artistes talentueux et propriétaires 
+                FRESKO révolutionne l'accès à l'art en créant des ponts entre artistes talentueux et propriétaires 
                 d'espaces. Notre mission est de transformer chaque mur en une toile d'expression artistique, 
                 rendant l'art accessible à tous et valorisant le travail des créateurs urbains.
               </p>
@@ -166,7 +166,7 @@ const About = () => {
         {/* Stats Section */}
         <section className="py-20 bg-muted/30 -mx-4 px-4 mb-20">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">WXLLSPACE en Chiffres</h2>
+            <h2 className="text-4xl font-bold mb-4">FRESKO en Chiffres</h2>
             <p className="text-xl text-muted-foreground">
               L'impact de notre communauté depuis le lancement
             </p>
@@ -198,7 +198,7 @@ const About = () => {
               <h2 className="text-3xl font-bold mb-6">Notre Vision</h2>
               <p className="text-lg leading-relaxed max-w-4xl mx-auto mb-8">
                 Nous imaginons un futur où chaque quartier, chaque rue, chaque espace urbain raconte une histoire 
-                à travers l'art. WXLLSPACE ambitionne de devenir la référence européenne de l'art mural collaboratif, 
+                à travers l'art. FRESKO ambitionne de devenir la référence européenne de l'art mural collaboratif, 
                 créant des milliers d'œuvres qui embellissent notre quotidien et soutiennent les artistes locaux.
               </p>
               <div className="flex flex-wrap justify-center gap-3">
@@ -220,7 +220,7 @@ const About = () => {
               </div>
               <h2 className="text-3xl font-bold mb-4">Une question ? Une idée ?</h2>
               <p className="text-xl text-muted-foreground mb-8">
-                Nous serions ravis d'échanger avec vous sur votre projet ou sur WXLLSPACE
+                Nous serions ravis d'échanger avec vous sur votre projet ou sur FRESKO
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -238,7 +238,7 @@ const About = () => {
 
               <div className="mt-8 pt-8 border-t border-border">
                 <p className="text-sm text-muted-foreground">
-                  WXLLSPACE - La marketplace du street art • Créé avec ❤️ en France
+                  FRESKO - La marketplace du street art • Créé avec ❤️ en France
                 </p>
               </div>
             </CardContent>

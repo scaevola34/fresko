@@ -24,6 +24,7 @@ import {
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/hooks/useAuth";
 import { AuthModal } from "@/components/auth/AuthModal";
+import { Logo } from "./Logo";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -51,10 +52,7 @@ const Navigation = () => {
       <div className="container flex h-16 items-center px-4">
         {/* Logo */}
         <Link to="/" className="flex items-center space-x-2 mr-8">
-          <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
-            <Palette className="h-5 w-5 text-white" />
-          </div>
-          <span className="font-bold text-xl text-graffiti">WXLLSPACE</span>
+          <Logo />
         </Link>
 
         {/* Desktop Navigation */}
