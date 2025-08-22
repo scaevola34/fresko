@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -14,10 +14,14 @@ import {
   Layers,
   Zap
 } from "lucide-react";
+import mapboxgl from 'mapbox-gl';
+import 'mapbox-gl/dist/mapbox-gl.css';
 
 const Map = () => {
   const [searchLocation, setSearchLocation] = useState("");
   const [mapFilter, setMapFilter] = useState("all");
+  const mapContainer = useRef<HTMLDivElement>(null);
+  const map = useRef<mapboxgl.Map | null>(null);
 
   // Mock data for map markers
   const locations = [
@@ -72,6 +76,101 @@ const Map = () => {
     { value: "projects", label: "Projets en cours" }
   ];
 
+  useEffect(() => {
+    if (!mapContainer.current) return;
+
+    // Initialize map
+    mapboxgl.accessToken = 'pk.eyJ1Ijoic2NhZXZvbGEzNCIsImEiOiJjbWVtczJ0ZHgwOG94MmpzYWU2ejRmOTQ2In0._NSEAoVXkFiG_9m8hMhH3A';
+    
+    map.current = new mapboxgl.Map({
+      container: mapContainer.current,
+      style: 'mapbox://styles/mapbox/light-v11',
+      center: [2.3522, 48.8566], // Center on Paris
+      zoom: 6
+    });
+
+    // Add navigation controls
+    map.current.addControl(
+      new mapboxgl.NavigationControl(),
+      'top-right'
+    );
+
+    // Add markers for each location
+    locations.forEach((location) => {
+      if (!map.current) return;
+      
+      // Create custom marker element
+      const markerElement = document.createElement('div');
+      markerElement.className = 'custom-marker';
+      markerElement.style.width = '32px';
+      markerElement.style.height = '32px';
+      markerElement.style.borderRadius = '50%';
+      markerElement.style.border = '2px solid white';
+      markerElement.style.boxShadow = '0 2px 8px rgba(0,0,0,0.3)';
+      markerElement.style.cursor = 'pointer';
+      markerElement.style.display = 'flex';
+      markerElement.style.alignItems = 'center';
+      markerElement.style.justifyContent = 'center';
+      
+      if (location.type === 'artist') {
+        markerElement.style.background = 'linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary)))';
+        markerElement.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="m22 2-1 1"></path><path d="m16 8 2-2"></path></svg>';
+      } else {
+        markerElement.style.background = 'linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--secondary)))';
+        markerElement.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>';
+      }
+
+      // Create popup content
+      const popupContent = location.type === 'artist' 
+        ? `<div class="p-2">
+             <h3 class="font-bold text-sm">${location.name}</h3>
+             <p class="text-xs text-gray-600">${location.specialty}</p>
+             <p class="text-xs text-gray-500">${location.location}</p>
+             <p class="text-xs">⭐ ${location.rating} • ${location.projects} projets</p>
+           </div>`
+        : `<div class="p-2">
+             <h3 class="font-bold text-sm">${location.title}</h3>
+             <p class="text-xs text-gray-600">${location.budget}</p>
+             <p class="text-xs text-gray-500">${location.location}</p>
+             <p class="text-xs">Taille: ${location.size}</p>
+           </div>`;
+
+      // Create marker and popup
+      const marker = new mapboxgl.Marker(markerElement)
+        .setLngLat([location.lng, location.lat])
+        .setPopup(new mapboxgl.Popup({ offset: 25 }).setHTML(popupContent))
+        .addTo(map.current);
+    });
+
+    // Cleanup
+    return () => {
+      map.current?.remove();
+    };
+  }, []);
+
+  const handleMyLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          map.current?.flyTo({
+            center: [longitude, latitude],
+            zoom: 12
+          });
+          
+          // Add user location marker
+          new mapboxgl.Marker({ color: '#ff6b6b' })
+            .setLngLat([longitude, latitude])
+            .setPopup(new mapboxgl.Popup().setHTML('<div class="p-2"><h3 class="font-bold text-sm">Votre position</h3></div>'))
+            .addTo(map.current!);
+        },
+        (error) => {
+          console.error('Error getting location:', error);
+        }
+      );
+    }
+  };
+
   return (
     <div className="min-h-screen py-8">
       <div className="container mx-auto px-4">
@@ -112,7 +211,7 @@ const Map = () => {
                 </SelectContent>
               </Select>
 
-              <Button variant="outline_glow" className="w-full">
+              <Button variant="outline_glow" className="w-full" onClick={handleMyLocation}>
                 <Navigation className="mr-2 h-4 w-4" />
                 Ma position
               </Button>
@@ -121,64 +220,11 @@ const Map = () => {
         </Card>
 
         <div className="grid lg:grid-cols-4 gap-8">
-          {/* Map Placeholder */}
+          {/* Interactive Map */}
           <div className="lg:col-span-3">
             <Card className="elevated h-[600px]">
               <CardContent className="p-0 h-full">
-                <div className="relative w-full h-full bg-gradient-to-br from-muted/30 to-muted/60 rounded-lg flex items-center justify-center">
-                  {/* Map Placeholder */}
-                  <div className="text-center space-y-4">
-                    <div className="w-24 h-24 bg-gradient-primary rounded-full flex items-center justify-center mx-auto animate-glow-pulse">
-                      <MapPin className="h-12 w-12 text-white" />
-                    </div>
-                    <div className="space-y-2">
-                      <h3 className="text-2xl font-bold">Carte Interactive</h3>
-                      <p className="text-muted-foreground max-w-sm">
-                        La carte interactive sera intégrée ici pour visualiser tous les artistes, 
-                        murs disponibles et projets en cours dans votre région.
-                      </p>
-                    </div>
-                    
-                    {/* Mock Map Elements */}
-                    <div className="grid grid-cols-2 gap-4 mt-8 max-w-md mx-auto">
-                      <div className="flex items-center gap-2 text-sm">
-                        <div className="w-3 h-3 bg-primary rounded-full"></div>
-                        <span>Artistes</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-sm">
-                        <div className="w-3 h-3 bg-secondary rounded-full"></div>
-                        <span>Murs disponibles</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-sm">
-                        <div className="w-3 h-3 bg-accent rounded-full"></div>
-                        <span>Projets en cours</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-sm">
-                        <div className="w-3 h-3 bg-muted-foreground rounded-full"></div>
-                        <span>Projets terminés</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Mock Map Markers */}
-                  <div className="absolute top-20 left-20 animate-bounce" style={{ animationDelay: "0s" }}>
-                    <div className="w-8 h-8 bg-gradient-primary rounded-full flex items-center justify-center border-2 border-white shadow-lg">
-                      <Users className="h-4 w-4 text-white" />
-                    </div>
-                  </div>
-                  
-                  <div className="absolute top-32 right-32 animate-bounce" style={{ animationDelay: "0.5s" }}>
-                    <div className="w-8 h-8 bg-gradient-secondary rounded-full flex items-center justify-center border-2 border-white shadow-lg">
-                      <Building2 className="h-4 w-4 text-white" />
-                    </div>
-                  </div>
-                  
-                  <div className="absolute bottom-24 left-32 animate-bounce" style={{ animationDelay: "1s" }}>
-                    <div className="w-8 h-8 bg-gradient-accent rounded-full flex items-center justify-center border-2 border-white shadow-lg">
-                      <Zap className="h-4 w-4 text-accent-foreground" />
-                    </div>
-                  </div>
-                </div>
+                <div ref={mapContainer} className="w-full h-full rounded-lg" />
               </CardContent>
             </Card>
           </div>
